@@ -2,6 +2,8 @@
 
 Development Bootcamp Project API
 
+https://documenter.getpostman.com/view/7301367/TVKD1HJU#dbf298b6-ecae-4773-b3d1-41280b83daf8
+
 > npm i 
 > add a config.env file in the root folder with
 
