@@ -7,6 +7,12 @@ const cookieParser = require('cookie-parser');
 const errorHandler = require('./middleware/error');
 const connectDB = require('./db');
 const path = require('path');
+const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
+const xss = require('xss-clean');
+const expressRateLimit = require('express-rate-limit');
+const hpp = require('hpp');
+const cors = require('cors');
 
 //load env vars
 dotenv.config({ path: './config.env' });
@@ -38,6 +44,28 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(fileUpload());
+
+//Sanitize Data
+app.use(mongoSanitize());
+
+// Set Security Headers
+app.use(helmet());
+
+// Clean scripts
+app.use(xss());
+
+// Rate limit
+const limiter = expressRateLimit({
+  windowMs: 10 * 60 * 1000,
+  max: 1,
+});
+app.use(limiter);
+
+//Prevent http param pollution
+app.use(hpp());
+
+// Enable CORS
+app.use(cors());
 
 // Mount routers
 

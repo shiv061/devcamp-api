@@ -1,2 +1,3 @@
-# devcamp-api
-Development Bootcamp Project API 
+# DevCast-api
+
+Development Bootcamp Project API
